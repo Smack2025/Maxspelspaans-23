@@ -6,7 +6,7 @@ export async function signOut() {
 }
 
 // Simple helper to get user ID from client
-export function getCurrentUserId(): string {
+export async function getCurrentUserId(): Promise<string> {
   // This will be handled on the client side
   return "guest"
 }
