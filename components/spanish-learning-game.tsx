@@ -73,7 +73,7 @@ export function SpanishLearningGame() {
   }, [])
 
   useEffect(() => {
-    if (gameMode === "welcome" && speechSupported) {
+    if (speechSupported) {
       speakWelcomeMessage()
 
       // Multiple retry attempts to ensure audio plays
@@ -85,7 +85,7 @@ export function SpanishLearningGame() {
 
       return () => retryTimers.forEach((timer) => clearTimeout(timer))
     }
-  }, [gameMode, speechSupported])
+  }, [speechSupported]) // Removed gameMode dependency to play on component mount
 
   useEffect(() => {
     if (currentWord && speechSupported && gameMode === "playing" && !showResult) {
