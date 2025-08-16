@@ -266,6 +266,7 @@ interface BrainrotCollectionProps {
 
 export function BrainrotCollection({ unlockedCharacters, onClose }: BrainrotCollectionProps) {
   const [characters, setCharacters] = useState<BrainrotCharacter[]>([])
+  const [selectedCharacter, setSelectedCharacter] = useState<string | null>(null)
 
   useEffect(() => {
     const updatedCharacters = BRAINROT_CHARACTERS.map((char) => ({
@@ -285,6 +286,56 @@ export function BrainrotCollection({ unlockedCharacters, onClose }: BrainrotColl
         return "text-blue-500 border-blue-500"
       default:
         return "text-gray-500 border-gray-500"
+    }
+  }
+
+  const speakCharacterName = (characterName: string) => {
+    if ("speechSynthesis" in window) {
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel()
+
+      const utterance = new SpeechSynthesisUtterance(characterName)
+
+      // Use Spanish-accented voice settings
+      utterance.lang = "es-US"
+      utterance.rate = 0.9
+      utterance.pitch = 1.8
+
+      // Try to find a Spanish female voice
+      const voices = window.speechSynthesis.getVoices()
+      const spanishVoice = voices.find(
+        (voice) =>
+          voice.lang.startsWith("es") &&
+          (voice.name.toLowerCase().includes("maria") ||
+            voice.name.toLowerCase().includes("carmen") ||
+            voice.name.toLowerCase().includes("sofia") ||
+            voice.name.toLowerCase().includes("isabella") ||
+            voice.name.toLowerCase().includes("female")),
+      )
+
+      if (spanishVoice) {
+        utterance.voice = spanishVoice
+      }
+
+      console.log(`[v0] Speaking character name: ${characterName}`)
+      window.speechSynthesis.speak(utterance)
+    }
+  }
+
+  const handleCharacterSelect = (characterId: string) => {
+    if (selectedCharacter === characterId) {
+      setSelectedCharacter(null) // Deselect if already selected
+    } else {
+      setSelectedCharacter(characterId)
+
+      const character = characters.find((c) => c.id === characterId)
+      if (character) {
+        speakCharacterName(character.name)
+      }
+
+      setTimeout(() => {
+        setSelectedCharacter(null)
+      }, 2000)
     }
   }
 
@@ -312,11 +363,16 @@ export function BrainrotCollection({ unlockedCharacters, onClose }: BrainrotColl
             {characters.map((character) => (
               <Card
                 key={character.id}
-                className={`relative overflow-hidden transition-all duration-300 ${
+                className={`relative overflow-hidden transition-all duration-300 cursor-pointer ${
                   character.unlocked
-                    ? `border-2 ${getRarityColor(character.rarity)} shadow-lg hover:scale-105`
+                    ? `border-2 ${getRarityColor(character.rarity)} shadow-lg hover:scale-105 ${
+                        selectedCharacter === character.id
+                          ? "animate-spin scale-110 shadow-2xl ring-4 ring-primary/50"
+                          : ""
+                      }`
                     : "opacity-50 grayscale"
                 }`}
+                onClick={() => character.unlocked && handleCharacterSelect(character.id)}
               >
                 <CardContent className="p-6 text-center">
                   {character.unlocked && (
@@ -329,7 +385,9 @@ export function BrainrotCollection({ unlockedCharacters, onClose }: BrainrotColl
                     <img
                       src={character.image || "/placeholder.svg"}
                       alt={character.name}
-                      className="w-24 h-24 mx-auto rounded-full border-4 border-border object-cover"
+                      className={`w-24 h-24 mx-auto rounded-full border-4 border-border object-cover transition-transform duration-300 ${
+                        selectedCharacter === character.id ? "animate-bounce scale-125" : ""
+                      }`}
                     />
                   </div>
 
@@ -344,6 +402,12 @@ export function BrainrotCollection({ unlockedCharacters, onClose }: BrainrotColl
                   <p className="text-sm text-muted-foreground font-body">
                     {character.unlocked ? character.description : "Keep playing to unlock!"}
                   </p>
+
+                  {selectedCharacter === character.id && character.unlocked && (
+                    <div className="absolute inset-0 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <div className="text-4xl animate-pulse">✨</div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -368,7 +432,6 @@ export function getRandomCharacterToUnlock(alreadyUnlocked: string[]): string | 
 
   if (availableCharacters.length === 0) return null
 
-  // Weight by rarity (common more likely, legendary less likely)
   const weights = availableCharacters.map((char) => {
     switch (char.rarity) {
       case "legendary":

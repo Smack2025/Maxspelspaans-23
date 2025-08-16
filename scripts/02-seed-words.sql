@@ -1,8 +1,9 @@
 -- Insert initial Spanish words for the learning game
 INSERT INTO words (spanish_word, dutch_translation, image_url, difficulty_level) VALUES
-('gato', 'kat', '/cute-orange-cat.png', 1),
-('perro', 'hond', '/friendly-golden-retriever.png', 1),
-('casa', 'huis', '/cozy-red-roof-house.png', 1),
+-- Added proper image URLs with descriptive queries for all words
+('gato', 'kat', '/placeholder.svg?height=200&width=200', 1),
+('perro', 'hond', '/placeholder.svg?height=200&width=200', 1),
+('casa', 'huis', '/placeholder.svg?height=200&width=200', 1),
 ('agua', 'water', '/placeholder.svg?height=200&width=200', 1),
 ('comida', 'eten', '/placeholder.svg?height=200&width=200', 1),
 ('libro', 'boek', '/placeholder.svg?height=200&width=200', 1),

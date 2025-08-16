@@ -97,6 +97,79 @@ export function SpanishLearningGame() {
     }
   }, [currentWordIndex, gameMode, showResult])
 
+  const getImageForDutchWord = (dutchWord: string): string => {
+    const imageMap: { [key: string]: string } = {
+      kat: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kat-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      hond: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hond-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      huis: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/huis-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      water: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/water-wIm9Y6JmEHzRnbF7N35TCiK2gI0gR2.png",
+      eten: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/eten-8qPb96sH78Yvbitdb9Hd5h29x4MJcH.png",
+      boek: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/boek-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      auto: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/auto-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      zon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/zon-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      maan: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/maan-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      boom: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/boom-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      bloem: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bloem-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      tafel: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tafel-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      stoel: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/stoel-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      raam: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/raam-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      deur: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/deur-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      spel: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/spel-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      telefoon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/telefoon-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      internet: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/internet-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      meme: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/meme-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/video-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      muziek: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/muziek-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      foto: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/foto-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      chat: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chat-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      school: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/school-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      werk: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/werk-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      familie: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/familie-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      vriend: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vriend-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      vrienden: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vrienden-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      tijd: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tijd-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      volger: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/volger-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      viraal: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/viraal-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      influencer:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/influencer-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      streaming: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/streaming-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      content: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/content-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      algoritme: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/algoritme-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      notificatie:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/notificatie-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      hashtag: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hashtag-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      gebaseerd: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gebaseerd-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      verdacht: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/verdacht-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      sfeer: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sfeer-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      pronken: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pronken-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      paasei: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/paasei-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      beginner: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/beginner-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      vertraging:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vertraging-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      fout: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/fout-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      snelloop: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/snelloop-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      modificatie:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/modificatie-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      rickroll: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rickroll-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      deepfake: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/deepfake-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      blockchain:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/blockchain-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      metaverse: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/metaverse-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      NFT: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/NFT-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      podcast: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/podcast-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      gigachad: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gigachad-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      wojak: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/wojak-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      pepe: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pepe-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      doge: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/doge-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      karen: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/karen-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+      simp: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simp-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+    }
+
+    return (
+      imageMap[dutchWord.toLowerCase()] || `/placeholder.svg?height=48&width=48&text=${encodeURIComponent(dutchWord)}`
+    )
+  }
+
   const loadWords = async (difficulty?: number) => {
     setLoading(true)
     try {
@@ -104,42 +177,81 @@ export function SpanishLearningGame() {
       const response = await fetch(url)
       if (response.ok) {
         const data = await response.json()
-        setWords(data.words)
+        const wordsWithImages = data.words.map((word: GameWord) => ({
+          ...word,
+          options: word.options.map((option: any) => ({
+            ...option,
+            image: getImageForDutchWord(option.text),
+          })),
+        }))
+        setWords(wordsWithImages)
         setGameStartTime(Date.now())
       } else {
         console.error("Failed to load words")
         const fallbackWords = getWordsByDifficulty(difficulty)
-        const gameWords = fallbackWords.map((word) => ({
-          id: word.id,
-          spanish: word.spanish_word,
-          dutch: word.dutch_translation,
-          image: word.image_url,
-          options: [
-            { text: word.dutch_translation, image: word.image_url },
-            { text: "hond", image: "/friendly-golden-retriever.png" },
-            { text: "kat", image: "/cute-orange-cat.png" },
-            { text: "huis", image: "/cozy-red-roof-house.png" },
-          ].sort(() => Math.random() - 0.5),
-          difficulty: word.difficulty_level,
-        }))
+        const gameWords = fallbackWords.map((word) => {
+          // Get 3 random incorrect options from other words
+          const otherWords = fallbackWords.filter((w) => w.id !== word.id)
+          const incorrectOptions = otherWords
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3)
+            .map((w) => ({
+              text: w.dutch_translation,
+              image: getImageForDutchWord(w.dutch_translation),
+            }))
+
+          // Add the correct option
+          const correctOption = {
+            text: word.dutch_translation,
+            image: getImageForDutchWord(word.dutch_translation),
+          }
+
+          // Combine and shuffle all options
+          const allOptions = [correctOption, ...incorrectOptions].sort(() => Math.random() - 0.5)
+
+          return {
+            id: word.id,
+            spanish: word.spanish_word,
+            dutch: word.dutch_translation,
+            image: word.image_url,
+            options: allOptions,
+            difficulty: word.difficulty_level,
+          }
+        })
         setWords(gameWords)
       }
     } catch (error) {
       console.error("Error loading words:", error)
       const fallbackWords = getWordsByDifficulty(difficulty)
-      const gameWords = fallbackWords.map((word) => ({
-        id: word.id,
-        spanish: word.spanish_word,
-        dutch: word.dutch_translation,
-        image: word.image_url,
-        options: [
-          { text: word.dutch_translation, image: word.image_url },
-          { text: "hond", image: "/friendly-golden-retriever.png" },
-          { text: "kat", image: "/cute-orange-cat.png" },
-          { text: "huis", image: "/cozy-red-roof-house.png" },
-        ].sort(() => Math.random() - 0.5),
-        difficulty: word.difficulty_level,
-      }))
+      const gameWords = fallbackWords.map((word) => {
+        // Get 3 random incorrect options from other words
+        const otherWords = fallbackWords.filter((w) => w.id !== word.id)
+        const incorrectOptions = otherWords
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 3)
+          .map((w) => ({
+            text: w.dutch_translation,
+            image: getImageForDutchWord(w.dutch_translation),
+          }))
+
+        // Add the correct option
+        const correctOption = {
+          text: word.dutch_translation,
+          image: getImageForDutchWord(word.dutch_translation),
+        }
+
+        // Combine and shuffle all options
+        const allOptions = [correctOption, ...incorrectOptions].sort(() => Math.random() - 0.5)
+
+        return {
+          id: word.id,
+          spanish: word.spanish_word,
+          dutch: word.dutch_translation,
+          image: word.image_url,
+          options: allOptions,
+          difficulty: word.difficulty_level,
+        }
+      })
       setWords(gameWords)
     } finally {
       setLoading(false)
@@ -164,27 +276,34 @@ export function SpanishLearningGame() {
     if (showResult) return
 
     setSelectedAnswer(answer)
-    const correct = true // Users always win!
+    const correct = answer === currentWord.dutch
     setIsCorrect(correct)
     setShowResult(true)
 
-    setScore(score + 1)
-    setStreak(streak + 1)
-    setMaxStreak(Math.max(maxStreak, streak + 1))
-    setAnimationClass("celebration")
+    if (correct) {
+      setScore(score + 1)
+      setStreak(streak + 1)
+      setMaxStreak(Math.max(maxStreak, streak + 1))
+      setAnimationClass("celebration")
 
-    if ((score + 1) % 2 === 0) {
-      // Every 2 correct answers
-      const newCharacter = getRandomCharacterToUnlock(unlockedCharacters)
-      if (newCharacter) {
-        setNewlyUnlockedCharacter(newCharacter)
-        setUnlockedCharacters((prev) => [...prev, newCharacter])
-        setShowCharacterUnlock(true)
+      if ((score + 1) % 2 === 0) {
+        // Every 2 correct answers
+        const newCharacter = getRandomCharacterToUnlock(unlockedCharacters)
+        if (newCharacter) {
+          setNewlyUnlockedCharacter(newCharacter)
+          setUnlockedCharacters((prev) => [...prev, newCharacter])
+          setShowCharacterUnlock(true)
+        }
       }
-    }
 
-    if (soundEnabled) {
-      setPlayCorrectSound(true)
+      if (soundEnabled) {
+        setPlayCorrectSound(true)
+      }
+    } else {
+      setStreak(0) // Reset streak on wrong answer
+      if (soundEnabled) {
+        setPlayIncorrectSound(true)
+      }
     }
 
     setTimeout(() => {
@@ -300,8 +419,8 @@ export function SpanishLearningGame() {
 
     const utterance = new SpeechSynthesisUtterance(word)
     utterance.lang = "es-ES" // Spanish language
-    utterance.rate = 0.8 // Slightly slower for learning
-    utterance.pitch = 1
+    utterance.rate = 1.0 // Normal speed instead of fast
+    utterance.pitch = 2.2 // Keep very high pitch for funny squeaky voice
     utterance.volume = soundEnabled ? 1 : 0
 
     utterance.onstart = () => setIsSpeaking(true)
@@ -318,21 +437,46 @@ export function SpanishLearningGame() {
 
     const message = "Hello Papacito Max, are you ready to collect Italian Brainrot Figures?"
     const utterance = new SpeechSynthesisUtterance(message)
-    utterance.lang = "it-IT" // Italian language for brainrot character
-    utterance.rate = 1.1 // Faster, more energetic pace for brainrot vibe
-    utterance.pitch = 1.4 // Even higher pitch for more playful/quirky character voice
-    utterance.volume = 1 // Always play at full volume regardless of soundEnabled setting
+
+    utterance.lang = "es-US" // Spanish locale for Spanish-accented English
+    utterance.rate = 1.0 // Normal speed instead of fast
+    utterance.pitch = 2.5 // Keep extremely high pitch for hilarious squeaky voice
+    utterance.volume = 1
+
+    const voices = window.speechSynthesis.getVoices()
+    const funnyVoice =
+      voices.find(
+        (voice) =>
+          (voice.lang.startsWith("es") || voice.name.toLowerCase().includes("spanish")) &&
+          (voice.name.toLowerCase().includes("female") ||
+            voice.name.toLowerCase().includes("woman") ||
+            voice.name.toLowerCase().includes("maria") ||
+            voice.name.toLowerCase().includes("carmen") ||
+            voice.name.toLowerCase().includes("sofia") ||
+            voice.name.toLowerCase().includes("isabella")),
+      ) ||
+      voices.find(
+        (voice) =>
+          voice.name.toLowerCase().includes("child") ||
+          voice.name.toLowerCase().includes("young") ||
+          voice.name.toLowerCase().includes("high"),
+      ) ||
+      voices.find((voice) => voice.lang.startsWith("es")) // Final fallback to any Spanish voice
+
+    if (funnyVoice) {
+      utterance.voice = funnyVoice
+    }
 
     utterance.onstart = () => {
-      console.log("[v0] Welcome message started playing")
+      console.log("[v0] Funny welcome message started playing")
       setIsSpeaking(true)
     }
     utterance.onend = () => {
-      console.log("[v0] Welcome message finished playing")
+      console.log("[v0] Funny welcome message finished playing")
       setIsSpeaking(false)
     }
     utterance.onerror = (event) => {
-      console.log("[v0] Welcome message error:", event.error)
+      console.log("[v0] Funny welcome message error:", event.error)
       setIsSpeaking(false)
       setTimeout(() => {
         if (!isSpeaking) {
@@ -341,7 +485,7 @@ export function SpanishLearningGame() {
       }, 200)
     }
 
-    console.log("[v0] Attempting to speak welcome message")
+    console.log("[v0] Attempting to speak funny welcome message")
     window.speechSynthesis.speak(utterance)
   }
 
@@ -646,6 +790,10 @@ export function SpanishLearningGame() {
                   buttonVariant = "default"
                 }
 
+                const imageUrl = getImageForDutchWord(option.text)
+
+                console.log(`[v0] Button ${index + 1} - Text: ${option.text}, Image URL: ${imageUrl}`)
+
                 return (
                   <Button
                     key={index}
@@ -657,12 +805,15 @@ export function SpanishLearningGame() {
                   >
                     <span className="absolute top-1 left-2 text-xs opacity-70">{index + 1}</span>
                     <img
-                      src={option.image || "/placeholder.svg"}
+                      src={imageUrl || "/placeholder.svg"}
                       alt={`Image for ${option.text}`}
                       className="w-12 h-12 object-cover rounded border-2 border-border/50 flex-shrink-0"
+                      onLoad={() => {
+                        console.log(`[v0] Image loaded successfully for: ${option.text}`)
+                      }}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement
-                        // Fallback to generic placeholder if image fails to load
+                        console.log(`[v0] Image failed to load for: ${option.text}, trying fallback`)
                         target.src = `/placeholder.svg?height=48&width=48&text=${encodeURIComponent(option.text)}`
                       }}
                     />
@@ -676,7 +827,11 @@ export function SpanishLearningGame() {
             {showResult && (
               <div className="text-center mt-6 bounce-in">
                 <p className="text-xl font-semibold font-body">
-                  <span className="text-green-600">¡Brainrot Magnifico! 🎉✨</span>
+                  {isCorrect ? (
+                    <span className="text-green-600">¡Brainrot Magnifico! 🎉✨</span>
+                  ) : (
+                    <span className="text-red-600">Oops! The correct answer was: {currentWord.dutch} 🤔</span>
+                  )}
                 </p>
               </div>
             )}

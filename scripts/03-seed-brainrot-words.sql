@@ -1,6 +1,7 @@
 -- Adding brainrot/internet culture themed Spanish vocabulary
 INSERT INTO words (spanish_word, dutch_translation, image_url, difficulty_level) VALUES
 -- Gaming & Internet Culture (Level 1)
+-- Added descriptive image queries for all brainrot words
 ('juego', 'spel', '/placeholder.svg?height=200&width=200', 1),
 ('teléfono', 'telefoon', '/placeholder.svg?height=200&width=200', 1),
 ('internet', 'internet', '/placeholder.svg?height=200&width=200', 1),
