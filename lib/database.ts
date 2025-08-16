@@ -1,8 +1,28 @@
 import { neon } from "@neondatabase/serverless"
 import type { Word, UserProgress } from "@/lib/types"
 
-// Initialize Neon SQL client
-const sql = neon(process.env.DATABASE_URL!)
+// Initialize Neon SQL client with fallback environment variables
+const getDatabaseUrl = () => {
+  const url =
+    process.env.DATABASE_URL ||
+    process.env.DATABASE_URL_UNPOOLED ||
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_URL_NON_POOLING
+
+  if (!url) {
+    console.error("No database URL found in environment variables:", {
+      DATABASE_URL: !!process.env.DATABASE_URL,
+      DATABASE_URL_UNPOOLED: !!process.env.DATABASE_URL_UNPOOLED,
+      POSTGRES_URL: !!process.env.POSTGRES_URL,
+      POSTGRES_URL_NON_POOLING: !!process.env.POSTGRES_URL_NON_POOLING,
+    })
+    throw new Error("No database connection string found. Please check your environment variables.")
+  }
+
+  return url
+}
+
+const sql = neon(getDatabaseUrl())
 
 // Get words for the game, optionally filtered by difficulty
 export async function getWords(difficultyLevel?: number): Promise<Word[]> {
