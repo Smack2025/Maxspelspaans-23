@@ -22,11 +22,14 @@ const getDatabaseUrl = () => {
   return url
 }
 
-const sql = neon(getDatabaseUrl())
+const getSqlClient = () => {
+  return neon(getDatabaseUrl())
+}
 
 // Get words for the game, optionally filtered by difficulty
 export async function getWords(difficultyLevel?: number): Promise<Word[]> {
   try {
+    const sql = getSqlClient()
     let data
 
     if (difficultyLevel) {
@@ -45,6 +48,7 @@ export async function getWords(difficultyLevel?: number): Promise<Word[]> {
 // Get user progress for specific words
 export async function getUserProgress(userId: string, wordIds: number[]): Promise<UserProgress[]> {
   try {
+    const sql = getSqlClient()
     // For IN clause with array, we need to use ANY() with array syntax
     const data = await sql`SELECT * FROM user_progress WHERE user_id = ${userId} AND word_id = ANY(${wordIds})`
     return data as UserProgress[]
@@ -57,6 +61,7 @@ export async function getUserProgress(userId: string, wordIds: number[]): Promis
 // Update user progress for a word
 export async function updateUserProgress(userId: string, wordId: number, isCorrect: boolean): Promise<void> {
   try {
+    const sql = getSqlClient()
     // First, try to get existing progress
     const existingProgress = await sql`SELECT * FROM user_progress WHERE user_id = ${userId} AND word_id = ${wordId}`
 
@@ -103,6 +108,7 @@ export async function saveGameSession(
   sessionDuration: number,
 ): Promise<void> {
   try {
+    const sql = getSqlClient()
     await sql`INSERT INTO game_sessions (user_id, score, total_questions, correct_answers, session_duration)
               VALUES (${userId}, ${score}, ${totalQuestions}, ${correctAnswers}, ${sessionDuration})`
   } catch (error) {
@@ -113,6 +119,7 @@ export async function saveGameSession(
 // Get user statistics
 export async function getUserStats(userId: string) {
   try {
+    const sql = getSqlClient()
     // Get total progress stats
     const progressStats = await sql`SELECT mastery_level, correct_attempts, incorrect_attempts 
                                    FROM user_progress WHERE user_id = ${userId}`
