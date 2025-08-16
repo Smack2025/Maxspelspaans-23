@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spaans Leren Brainrot Game</title>
+<style>
+body { background-color: #fffbcc; font-family: 'Comic Sans MS', cursive; text-align: center; margin: 0; padding: 0; overflow-x: hidden; }
+h1 { font-size: 2.2em; color: #ff0066; margin-top: 20px; }
+.word-img { max-width: 200px; margin: 20px auto; border: 4px solid #ff0066; border-radius: 10px; }
+.answers { display: flex; flex-wrap: wrap; justify-content: center; margin: 20px; }
+.answers button { background-color: #ffcc00; border: none; padding: 15px; margin: 10px; font-size: 1.2em; border-radius: 10px; cursor: pointer; transition: transform .2s; }
+.answers button:hover { transform: scale(1.1); }
+.reward { display: none; animation: dance .5s infinite; }
+@keyframes dance { 0% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } 100% { transform: rotate(-10deg); } }
+.chaos { animation: chaosBG .1s infinite; }
+@keyframes chaosBG { 0% { background-color: #ff0066; } 25% { background-color: #00ffcc; } 50% { background-color: #ffff00; } 75% { background-color: #ff9900; } 100% { background-color: #ff0066; } }
+</style>
+</head>
+<body>
+<h1>🇪🇸 Leer Spaans & Win Gekke Vrienden!</h1>
+<div id="game">
+    <img id="wordImage" class="word-img" src="">
+    <h2 id="spanishWord"></h2>
+    <div class="answers" id="answers"></div>
+</div>
+<div id="rewardSection">
+    <img id="rewardImage" class="reward" src="">
+    <h3 id="rewardName"></h3>
+</div>
+<audio id="sfxCorrect" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+<audio id="sfxChaos" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
+<script>
+const words = [
+  { es: "gato", nl: "kat", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg" },
+  { es: "perro", nl: "hond", img: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Golde33443.jpg" },
+  { es: "manzana", nl: "appel", img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg" }
+];
+const rewards = [
+  { name: "Dansende Citroen", img: "https://via.placeholder.com/150?text=Citroen" },
+  { name: "Mega Pasta", img: "https://via.placeholder.com/150?text=Pasta" }
+];
+let currentIndex = 0;
+function loadWord() {
+    const w = words[currentIndex];
+    document.getElementById('spanishWord').textContent = w.es;
+    document.getElementById('wordImage').src = w.img;
+    const answers = document.getElementById('answers');
+    answers.innerHTML = '';
+    let opts = [w.nl];
+    while (opts.length < 3) {
+        let r = words[Math.floor(Math.random() * words.length)].nl;
+        if (!opts.includes(r)) opts.push(r);
+    }
+    opts.sort(() => Math.random() - 0.5);
+    opts.forEach(opt => {
+        let btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt === w.nl);
+        answers.appendChild(btn);
+    });
+}
+function checkAnswer(correct) {
+    if (correct) {
+        document.getElementById('sfxCorrect').play();
+        const reward = rewards[Math.floor(Math.random() * rewards.length)];
+        document.getElementById('rewardImage').src = reward.img;
+        document.getElementById('rewardName').textContent = reward.name;
+        document.getElementById('rewardImage').style.display = 'block';
+        currentIndex = (currentIndex + 1) % words.length;
+        setTimeout(loadWord, 2000);
+    } else {
+        alert("¡Intenta de nuevo!");
+    }
+}
+loadWord();
+</script>
+</body>
+</html>

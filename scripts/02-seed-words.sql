@@ -1,0 +1,22 @@
+-- Insert initial Spanish words for the learning game
+INSERT INTO words (spanish_word, dutch_translation, image_url, difficulty_level) VALUES
+('gato', 'kat', '/cute-orange-cat.png', 1),
+('perro', 'hond', '/friendly-golden-retriever.png', 1),
+('casa', 'huis', '/cozy-red-roof-house.png', 1),
+('agua', 'water', '/placeholder.svg?height=200&width=200', 1),
+('comida', 'eten', '/placeholder.svg?height=200&width=200', 1),
+('libro', 'boek', '/placeholder.svg?height=200&width=200', 1),
+('coche', 'auto', '/placeholder.svg?height=200&width=200', 1),
+('sol', 'zon', '/placeholder.svg?height=200&width=200', 1),
+('luna', 'maan', '/placeholder.svg?height=200&width=200', 1),
+('árbol', 'boom', '/placeholder.svg?height=200&width=200', 1),
+('flor', 'bloem', '/placeholder.svg?height=200&width=200', 1),
+('mesa', 'tafel', '/placeholder.svg?height=200&width=200', 1),
+('silla', 'stoel', '/placeholder.svg?height=200&width=200', 1),
+('ventana', 'raam', '/placeholder.svg?height=200&width=200', 1),
+('puerta', 'deur', '/placeholder.svg?height=200&width=200', 1),
+('escuela', 'school', '/placeholder.svg?height=200&width=200', 2),
+('trabajo', 'werk', '/placeholder.svg?height=200&width=200', 2),
+('familia', 'familie', '/placeholder.svg?height=200&width=200', 2),
+('amigo', 'vriend', '/placeholder.svg?height=200&width=200', 2),
+('tiempo', 'tijd', '/placeholder.svg?height=200&width=200', 2);
