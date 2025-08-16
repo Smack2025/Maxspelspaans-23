@@ -21,17 +21,11 @@ export default function StatsPage() {
   const router = useRouter()
   const [stats, setStats] = useState<UserStats | null>(null)
   const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState<string>("")
+  const [username, setUsername] = useState<string>("guest")
 
   useEffect(() => {
     const loadStats = async () => {
-      const userId = localStorage.getItem("spanish-game-user")
-
-      if (!userId) {
-        router.push("/auth/login")
-        return
-      }
-
+      const userId = localStorage.getItem("spanish-game-user") || "guest"
       setUsername(userId)
 
       try {
@@ -52,7 +46,7 @@ export default function StatsPage() {
     }
 
     loadStats()
-  }, [router])
+  }, [])
 
   if (loading) {
     return (

@@ -209,7 +209,7 @@ export function SpanishLearningGame() {
   }
 
   const saveGameSession = async () => {
-    const userId = localStorage.getItem("spanish-game-user") || "guest"
+    const userId = "guest"
     const sessionDuration = Math.floor((Date.now() - gameStartTime) / 1000)
 
     try {
