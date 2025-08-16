@@ -55,6 +55,17 @@ export function SpanishLearningGame() {
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [speechSupported, setSpeechSupported] = useState(false)
 
+  const [gameAnswers, setGameAnswers] = useState<
+    Array<{
+      question: string
+      correctAnswer: string
+      userAnswer: string
+      isCorrect: boolean
+      difficulty: number
+      timestamp: number
+    }>
+  >([])
+
   useEffect(() => {
     const saved = localStorage.getItem("brainrot-collection")
     if (saved) {
@@ -111,43 +122,47 @@ export function SpanishLearningGame() {
       boom: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/boom-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
       bloem: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bloem-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
       tafel: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tafel-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      stoel: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/stoel-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
-      raam: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/raam-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      deur: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/deur-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      spel: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/spel-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
-      telefoon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/telefoon-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      internet: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/internet-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      meme: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/meme-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
-      video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/video-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      muziek: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/muziek-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      foto: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/foto-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
-      chat: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chat-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      school: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/school-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      werk: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/werk-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
-      familie: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/familie-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      vriend: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vriend-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+      stoel: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/stoel-b8eSMnnRqUlHySjFnqPe8H4ccdPvCh.png",
+      raam: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/raam-cMU1Oe86gYtzpfxvsp4DekGEYeUCOf.png",
+      deur: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/deur-kO5QqUaXULIclIAjjpfgPFgCHc7wm4.png",
+      spel: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/spel-9ZcqRMm84GJKAyG05Umad2N67RSCPh.png",
+      telefoon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/telefoon-FeOj92XHlHkQVrYws4D8pKoKYZODn9.png",
+      internet: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/internet-tfXfjGIxjr8WU7HF0B99YQRyAW8psB.png",
+      meme: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/meme-IQMZLMiEqC0FQ32hczQ65gsprxbIqZ.png",
+      video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/video-SJfQvbFmqPa0N3DTSiuz7lDhU8Nzyq.png",
+      muziek: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/muziek-69P2zwRUUvB6lKbPWhi1IFfHKtP96k.png",
+      foto: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/foto-XjiVqEwvr1mryLK9XHHUBPTN4ovI4v.png",
+      chat: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chat-ZMf6bXnJlvCIXa5hznc83DXGWKr8pG.png",
+      school: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/school-aOPOwkDWPuV9JgktCtj5kiX7YPWJqe.png",
+      werk: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/werk-oqkVmP9y2UiX5SnRUyPLxlWWzyJ1iJ.png",
+      familie: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/familie-nBQtlefPSWzUS8tjURV7BrLVwA92NX.png",
+      vriend: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vriend-5LtQqc8T7h8e7Zl5erNa6j3GCMDTLA.png",
       vrienden: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vrienden-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
-      tijd: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tijd-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      volger: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/volger-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      viraal: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/viraal-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      tijd: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tijd-cz0YSO70M0rcbBsKc9cYpQsrwpGEMn.png",
+      volger: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/volger-zCIglPfR9IfOpGeI0b2e0eoGIWn83B.png",
+      viraal: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/viraal-2N0Fvy4QBIGjbElLmZT8WRCG8dbGa6.png",
       influencer:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/influencer-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      streaming: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/streaming-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      content: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/content-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
-      algoritme: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/algoritme-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/influencer-EWUh6mzBqHNvd85Bhr3LYEkDiupHAP.png",
+      streaming: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/streaming-3K6NCSkr8bAN1gFdZIy2RxPUozYepB.png",
+      content: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/content-Urmqn869fcoIez8XiLjhExrp3RxL4c.png",
+      algoritme: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/algoritme-jsvbiCIXWOWV0dLwoqwY797tvKd7Hd.png",
       notificatie:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/notificatie-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/notificatie-FASr1PrJl83GrUASRMA2FiGAE5gFzj.png",
       hashtag: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hashtag-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
-      gebaseerd: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gebaseerd-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      verdacht: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/verdacht-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      sfeer: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sfeer-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      pronken: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pronken-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      paasei: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/paasei-OKajeZKvQVHqw90gd8cYKw2El3iuJM.png",
-      beginner: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/beginner-QRPHbuD1RaWP8HO8gdMBHeTh8ihl1Q.png",
+      gebaseerd: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gebaseerd-L9DZdncUY5IouU5UT19BMRe0pee7Je.png",
+      verdacht: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/verdacht-v47DWe1HoD9OUkGFORDAX72lbIM6ku.png",
+      sfeer: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sfeer-xYKosVShlyNw3XPN0Pll0wOm2hRaJg.png",
+      pronken: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pronken-heWx6yI3ALozsPnGsPO7YCTi9ibup3.png",
+      cringe: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cringe-TPswAqJpTOy1XuZJZdbVPz4f3NnICi.png",
+      fout: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/fout-wHm03LtV8VNJs9BW81Vnqy6AtzNf6Q.png",
+      snelloop: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/snelloop-rQn3vmiY3qe8kzZZfeUobbpU9u7vxR.png",
       vertraging:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vertraging-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      fout: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/fout-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
-      snelloop: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/snelloop-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/vertraging-1HKnVC2yrwOyMgUdAoOMpHYq96QZJo.png",
+      omgaan: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/omgaan-sC4jXOAOnGjQ0sWkHd1IMTK6Cm9fEs.png",
+      sigma: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sigma-FPm6urEggLrFLGNWkaeUBPrBwNTA2a.png",
+      paasei: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/paasei-svqotie7tpGFc3VkapaxyA2VA0ze3h.png",
+      beginner: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/beginner-Ir1CbHKl6hoHAMz21Wl0F8TBqhiWmo.png",
+      charme: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/charme-Kjlnb4kp3NCi5QpRrKQvjqDbLw0Vcl.png",
       modificatie:
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/modificatie-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
       rickroll: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rickroll-ZQo007HXEtSoQJfzWnD0uPyVSy6I4r.png",
@@ -280,6 +295,16 @@ export function SpanishLearningGame() {
     setIsCorrect(correct)
     setShowResult(true)
 
+    const answerRecord = {
+      question: currentWord.spanish,
+      correctAnswer: currentWord.dutch,
+      userAnswer: answer,
+      isCorrect: correct,
+      difficulty: currentWord.difficulty,
+      timestamp: Date.now(),
+    }
+    setGameAnswers((prev) => [...prev, answerRecord])
+
     if (correct) {
       setScore(score + 1)
       setStreak(streak + 1)
@@ -376,6 +401,7 @@ export function SpanishLearningGame() {
     setGameStartTime(Date.now())
     setShowCharacterUnlock(false)
     setNewlyUnlockedCharacter(null)
+    setGameAnswers([])
   }
 
   const backToMenu = () => {
@@ -394,6 +420,11 @@ export function SpanishLearningGame() {
         <Sparkles className="w-3 h-3 mr-1" />
         {unlockedCharacters.length}/{BRAINROT_CHARACTERS.length}
       </Button>
+      {(gameComplete || gameAnswers.length > 0) && (
+        <Button variant="outline" size="sm" onClick={exportGameData} className="h-8 px-3 font-body bg-transparent">
+          📊 Export
+        </Button>
+      )}
       <Button
         variant="outline"
         size="sm"
@@ -491,6 +522,47 @@ export function SpanishLearningGame() {
 
   const dismissWelcome = () => {
     setGameMode("select")
+  }
+
+  const exportGameData = () => {
+    const exportData = {
+      gameSession: {
+        timestamp: new Date().toISOString(),
+        difficulty: selectedDifficulty,
+        totalQuestions: words.length,
+        score: score,
+        maxStreak: maxStreak,
+        sessionDuration: Math.floor((Date.now() - gameStartTime) / 1000),
+        accuracy: words.length > 0 ? Math.round((score / words.length) * 100) : 0,
+      },
+      answers: gameAnswers,
+      unlockedCharacters: unlockedCharacters.map((id) => {
+        const character = BRAINROT_CHARACTERS.find((c) => c.id === id)
+        return {
+          id,
+          name: character?.name || "Unknown",
+          description: character?.description || "",
+        }
+      }),
+      vocabulary: words.map((word) => ({
+        spanish: word.spanish,
+        dutch: word.dutch,
+        difficulty: word.difficulty,
+        options: word.options.map((opt) => opt.text),
+      })),
+    }
+
+    const dataStr = JSON.stringify(exportData, null, 2)
+    const dataBlob = new Blob([dataStr], { type: "application/json" })
+    const url = URL.createObjectURL(dataBlob)
+
+    const link = document.createElement("a")
+    link.href = url
+    link.download = `spanish-learning-export-${new Date().toISOString().split("T")[0]}.json`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
 
   if (gameMode === "collection") {
@@ -665,6 +737,13 @@ export function SpanishLearningGame() {
               perfectGames={perfectGame ? 1 : 0}
             />
             <div className="space-y-4 mt-6">
+              <Button
+                onClick={exportGameData}
+                variant="outline"
+                className="w-full py-3 font-heading bg-transparent mb-2"
+              >
+                📊 Export All Answers & Progress
+              </Button>
               <div className="flex gap-2">
                 <Button
                   onClick={resetGame}
