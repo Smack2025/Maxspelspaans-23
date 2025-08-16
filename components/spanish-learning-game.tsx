@@ -76,14 +76,14 @@ export function SpanishLearningGame() {
     if (gameMode === "welcome" && speechSupported) {
       speakWelcomeMessage()
 
-      // Retry after a short delay if the first attempt fails
-      const retryTimer = setTimeout(() => {
-        if (!isSpeaking) {
-          speakWelcomeMessage()
-        }
-      }, 500)
+      // Multiple retry attempts to ensure audio plays
+      const retryTimers = [
+        setTimeout(() => speakWelcomeMessage(), 100),
+        setTimeout(() => speakWelcomeMessage(), 500),
+        setTimeout(() => speakWelcomeMessage(), 1000),
+      ]
 
-      return () => clearTimeout(retryTimer)
+      return () => retryTimers.forEach((timer) => clearTimeout(timer))
     }
   }, [gameMode, speechSupported])
 
@@ -316,31 +316,33 @@ export function SpanishLearningGame() {
 
     window.speechSynthesis.cancel()
 
-    // Small delay to ensure cancel completes
-    setTimeout(() => {
-      const message = "Hello Papacito Max, are you ready to collect Italian Brainrot Figures?"
-      const utterance = new SpeechSynthesisUtterance(message)
-      utterance.lang = "it-IT" // Italian language for brainrot character
-      utterance.rate = 1.1 // Faster, more energetic pace for brainrot vibe
-      utterance.pitch = 1.4 // Even higher pitch for more playful/quirky character voice
-      utterance.volume = 1 // Always play at full volume regardless of soundEnabled setting
+    const message = "Hello Papacito Max, are you ready to collect Italian Brainrot Figures?"
+    const utterance = new SpeechSynthesisUtterance(message)
+    utterance.lang = "it-IT" // Italian language for brainrot character
+    utterance.rate = 1.1 // Faster, more energetic pace for brainrot vibe
+    utterance.pitch = 1.4 // Even higher pitch for more playful/quirky character voice
+    utterance.volume = 1 // Always play at full volume regardless of soundEnabled setting
 
-      utterance.onstart = () => {
-        console.log("[v0] Welcome message started playing")
-        setIsSpeaking(true)
-      }
-      utterance.onend = () => {
-        console.log("[v0] Welcome message finished playing")
-        setIsSpeaking(false)
-      }
-      utterance.onerror = (event) => {
-        console.log("[v0] Welcome message error:", event.error)
-        setIsSpeaking(false)
-      }
+    utterance.onstart = () => {
+      console.log("[v0] Welcome message started playing")
+      setIsSpeaking(true)
+    }
+    utterance.onend = () => {
+      console.log("[v0] Welcome message finished playing")
+      setIsSpeaking(false)
+    }
+    utterance.onerror = (event) => {
+      console.log("[v0] Welcome message error:", event.error)
+      setIsSpeaking(false)
+      setTimeout(() => {
+        if (!isSpeaking) {
+          window.speechSynthesis.speak(utterance)
+        }
+      }, 200)
+    }
 
-      console.log("[v0] Attempting to speak welcome message")
-      window.speechSynthesis.speak(utterance)
-    }, 100)
+    console.log("[v0] Attempting to speak welcome message")
+    window.speechSynthesis.speak(utterance)
   }
 
   const dismissWelcome = () => {
@@ -394,8 +396,7 @@ export function SpanishLearningGame() {
                     </>
                   ) : (
                     <>
-                      <Volume2 className="w-4 h-4" />
-                      Play Audio
+                      <Volume2 className="w-4 h-4" />🔊 Play Welcome Message
                     </>
                   )}
                 </Button>
