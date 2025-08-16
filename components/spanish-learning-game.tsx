@@ -419,7 +419,7 @@ export function SpanishLearningGame() {
 
     const utterance = new SpeechSynthesisUtterance(word)
     utterance.lang = "es-ES" // Spanish language
-    utterance.rate = 1.0 // Normal speed instead of fast
+    utterance.rate = 0.7 // Slower speed for children to understand better
     utterance.pitch = 2.2 // Keep very high pitch for funny squeaky voice
     utterance.volume = soundEnabled ? 1 : 0
 
@@ -439,7 +439,7 @@ export function SpanishLearningGame() {
     const utterance = new SpeechSynthesisUtterance(message)
 
     utterance.lang = "es-US" // Spanish locale for Spanish-accented English
-    utterance.rate = 1.0 // Normal speed instead of fast
+    utterance.rate = 0.7 // Slower speed for children to understand better
     utterance.pitch = 2.5 // Keep extremely high pitch for hilarious squeaky voice
     utterance.volume = 1
 
@@ -505,7 +505,7 @@ export function SpanishLearningGame() {
           <CardContent className="p-8 text-center">
             <div className="mb-6">
               <img
-                src="/walking-log-baseball.png"
+                src="/sahur-tung-tung-tung-sahur.gif"
                 alt="Tung Tung Tung Sahur"
                 className={`w-32 h-32 mx-auto rounded-full border-4 border-primary shadow-lg mb-4 ${isSpeaking ? "animate-bounce" : "animate-pulse"}`}
               />
