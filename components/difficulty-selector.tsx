@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Star, Zap, Crown } from "lucide-react"
+import { Star, Zap } from "lucide-react"
 
 interface DifficultySelectorProps {
   onSelectDifficulty: (level: number) => void
@@ -30,15 +30,6 @@ export function DifficultySelector({ onSelectDifficulty, onPlayAll }: Difficulty
       bgColor: "bg-yellow-50 hover:bg-yellow-100",
       borderColor: "border-yellow-200",
     },
-    {
-      level: 3,
-      name: "Advanced",
-      description: "Challenging words",
-      icon: Crown,
-      color: "text-red-600",
-      bgColor: "bg-red-50 hover:bg-red-100",
-      borderColor: "border-red-200",
-    },
   ]
 
   return (
@@ -49,7 +40,7 @@ export function DifficultySelector({ onSelectDifficulty, onPlayAll }: Difficulty
           <p className="text-lg text-muted-foreground font-body">Select a difficulty level to start learning</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {difficulties.map((difficulty) => {
             const Icon = difficulty.icon
             return (

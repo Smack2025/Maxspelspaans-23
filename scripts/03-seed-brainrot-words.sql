@@ -21,23 +21,7 @@ INSERT INTO words (spanish_word, dutch_translation, image_url, difficulty_level)
 ('notificación', 'notificatie', '/placeholder.svg?height=200&width=200', 2),
 ('hashtag', 'hashtag', '/placeholder.svg?height=200&width=200', 2),
 
--- Advanced Brainrot Terms (Level 3)
-('cringe', 'cringe', '/placeholder.svg?height=200&width=200', 3),
-('sigma', 'sigma', '/placeholder.svg?height=200&width=200', 3),
-('rizz', 'charme', '/placeholder.svg?height=200&width=200', 3),
-('sussy', 'verdacht', '/placeholder.svg?height=200&width=200', 3),
-('based', 'gebaseerd', '/placeholder.svg?height=200&width=200', 3),
-('cope', 'omgaan', '/placeholder.svg?height=200&width=200', 3),
-('flex', 'pronken', '/placeholder.svg?height=200&width=200', 3),
-('vibe', 'sfeer', '/placeholder.svg?height=200&width=200', 3),
-
--- Gaming & Tech Slang (Level 3)
-('noob', 'beginner', '/placeholder.svg?height=200&width=200', 3),
-('lag', 'vertraging', '/placeholder.svg?height=200&width=200', 3),
-('glitch', 'fout', '/placeholder.svg?height=200&width=200', 3),
-('speedrun', 'snelloop', '/placeholder.svg?height=200&width=200', 3),
-('mod', 'modificatie', '/placeholder.svg?height=200&width=200', 3),
-('easter egg', 'paasei', '/placeholder.svg?height=200&width=200', 3),
+-- Removed all level 3 entries (Advanced Brainrot Terms and Gaming & Tech Slang)
 
 -- Internet Phenomena (Level 4)
 ('rickroll', 'rickroll', '/placeholder.svg?height=200&width=200', 4),
